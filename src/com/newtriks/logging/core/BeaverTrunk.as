@@ -2,18 +2,20 @@
 package com.newtriks.logging.core {
 
 import com.newtriks.logging.helpers.BeaverUtil;
+import com.newtriks.logging.values.Log;
 
 import flash.events.AsyncErrorEvent;
 import flash.events.SecurityErrorEvent;
 import flash.events.StatusEvent;
 import flash.net.LocalConnection;
 import flash.net.SharedObject;
+import flash.net.registerClassAlias;
 import flash.system.Security;
 import flash.utils.getQualifiedClassName;
 
 import mx.logging.LogEventLevel;
 
-public class BeaverTrunk {
+public class BeaverTrunk implements IBeaverTrunk {
     // Local connection
     private var connection:LocalConnection = new LocalConnection();
     private var lcHandler:String = "lcHandler";
@@ -34,6 +36,7 @@ public class BeaverTrunk {
         this.solName = solName;
         logsVector = new Vector.<Log>();
         currentIndex = 1;
+        registerClassAlias("com.newtriks.logging.values.Log", Log);
     }
 
     /**
@@ -42,7 +45,7 @@ public class BeaverTrunk {
 
     public function saveNewLog(message:String, sender:Object, level:int):void {
         var qualifiedClassName:String = getQualifiedClassName(sender);
-        var log:Log = new Log(nextID, message, qualifiedClassName, level, dateTimeStamp);
+        var log:Log = buildLog(message, qualifiedClassName, level);
         logsVector.push(log);
         saveToSol();
         updateIndexing(log);
@@ -50,6 +53,7 @@ public class BeaverTrunk {
     }
 
     public function get logs():Vector.<Log> {
+        readFromSol();
         return logsVector;
     }
 
@@ -63,6 +67,16 @@ public class BeaverTrunk {
         solData.logs = logsVector;
         sol.flush();
         sol.close();
+    }
+
+    protected function readFromSol():void
+    {
+        var mailSol:SharedObject=getSol();
+        var solData:Object=mailSol.data;
+        if(solData.logs!=null)
+        {
+            logsVector=solData.logs;
+        }
     }
 
     private function sendToBeaver(message:String, qualifiedClassName:String, level:int = 4):void {
@@ -87,6 +101,16 @@ public class BeaverTrunk {
         if (level > 6) {
             BeaverUtil.handleErrorLogs(message, qualifiedClassName, level);
         }
+    }
+
+    private function buildLog(message:String, qualifiedClassName:String, level:int):Log {
+        var currentLog:Log = new Log();
+        currentLog.id = nextID;
+        currentLog.body = message;
+        currentLog.sender = qualifiedClassName;
+        currentLog.level = level;
+        currentLog.dateTimeStamp = dateTimeStamp;
+        return currentLog;
     }
 
     private function updateIndexing(log:Log):void {
