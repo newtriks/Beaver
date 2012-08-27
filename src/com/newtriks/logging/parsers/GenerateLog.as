@@ -7,8 +7,8 @@ import mx.formatters.DateFormatter;
 import mx.logging.LogEvent;
 import mx.utils.StringUtil;
 
-public class GenerateLogReport {
-    public static function getUserID(logs:Vector.<Log>):String {
+public class GenerateLog {
+    public static function log_id(logs:Vector.<Log>):String {
         var i:int;
         var length:int = logs.length;
         var currentRecord:Log;
@@ -24,7 +24,7 @@ public class GenerateLogReport {
         return log_id;
     }
 
-    public static function generateReport(logs:Vector.<Log>):String {
+    public static function report(logs:Vector.<Log>):String {
         var i:int;
         var length:int = logs.length - 1;
         var currentLog:Log;

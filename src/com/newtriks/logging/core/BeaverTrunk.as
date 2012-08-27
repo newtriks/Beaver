@@ -24,16 +24,17 @@ public class BeaverTrunk implements IBeaverTrunk {
     private var solPath:String = "/";
     // Class
     private var hasEventListeners:Boolean = false;
-    private var outputToConsole:Boolean = true;
+    private var outputToConsole:Boolean;
     private var logsVector:Vector.<Log>;
     private var currentIndex:uint;
 
-    public function BeaverTrunk(solName:String) {
+    public function BeaverTrunk(solName:String, outputToConsole:Boolean=true) {
 
         Security.allowDomain("*");
         Security.allowInsecureDomain("*");
 
         this.solName = solName;
+        this.outputToConsole = outputToConsole;
         logsVector = new Vector.<Log>();
         currentIndex = 1;
         registerClassAlias("com.newtriks.logging.values.Log", Log);
