@@ -34,7 +34,7 @@ anonymous users reading your application logs.
 
 * BeaverLog.send( message, dispatching class, LogEventLevel );
 
-	* `BeaverLog.send("Knaw a log or two", this);`
+	* `BeaverLog.send("Gnaw a log or two", this);`
 	* `BeaverLog.send("The whole tree fell!", this, LogEventLevel.FATAL);`
 
 #### How to make further use of ERROR/FATAL logs:
