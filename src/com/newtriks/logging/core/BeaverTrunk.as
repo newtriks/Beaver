@@ -2,7 +2,8 @@
 package com.newtriks.logging.core {
 
 import com.newtriks.logging.helpers.BeaverUtil;
-import com.newtriks.logging.values.Log;
+import com.newtriks.logging.values.*;
+import com.newtriks.logging.events.*;
 
 import flash.events.AsyncErrorEvent;
 import flash.events.SecurityErrorEvent;
@@ -12,8 +13,6 @@ import flash.net.SharedObject;
 import flash.net.registerClassAlias;
 import flash.system.Security;
 import flash.utils.getQualifiedClassName;
-
-import mx.logging.LogEventLevel;
 
 public class BeaverTrunk implements IBeaverTrunk {
     // Local connection

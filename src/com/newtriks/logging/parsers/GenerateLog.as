@@ -3,9 +3,9 @@ package com.newtriks.logging.parsers {
 
 import com.newtriks.logging.values.Log;
 
-import mx.formatters.DateFormatter;
-import mx.logging.LogEvent;
-import mx.utils.StringUtil;
+import com.newtriks.logging.formatters.*;
+import com.newtriks.logging.events.*;
+import com.newtriks.logging.helpers.*;
 
 public class GenerateLog {
     public static function log_id(logs:Vector.<Log>):String {

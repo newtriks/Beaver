@@ -1,9 +1,7 @@
 /** @author: Simon Bailey simon@newtriks.com */
 package com.newtriks.logging.helpers {
-import com.newtriks.logging.events.BeaverEvent;
 
-import mx.core.FlexGlobals;
-import mx.logging.LogEvent;
+import com.newtriks.logging.events.*;
 
 public class BeaverUtil {
     /**
@@ -35,7 +33,7 @@ public class BeaverUtil {
      * @param level
      */
     public static function handleErrorLogs(errorMessage:String, sender:Object, level:int):void {
-        FlexGlobals.topLevelApplication.dispatchEvent(new BeaverEvent(errorMessage, sender, BeaverEvent.ERROR, level));
+        // FlexGlobals.topLevelApplication.dispatchEvent(new BeaverEvent(errorMessage, sender, BeaverEvent.ERROR, level));
     }
 
     /**
