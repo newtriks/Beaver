@@ -32,8 +32,9 @@ public class BeaverUtil {
      * @param sender
      * @param level
      */
-    public static function handleErrorLogs(errorMessage:String, sender:Object, level:int):void {
-        // FlexGlobals.topLevelApplication.dispatchEvent(new BeaverEvent(errorMessage, sender, BeaverEvent.ERROR, level));
+    public static function handleErrorLogs(errorMessage:String, sender:Object, level:int, application:Object):void {
+        if(application==null) return;
+        application.dispatchEvent(new BeaverEvent(errorMessage, sender, BeaverEvent.ERROR, level));
     }
 
     /**

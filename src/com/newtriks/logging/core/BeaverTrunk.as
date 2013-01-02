@@ -23,16 +23,18 @@ public class BeaverTrunk implements IBeaverTrunk {
     private var solPath:String = "/";
     // Class
     private var hasEventListeners:Boolean = false;
+    private var application:Object;
     private var outputToConsole:Boolean;
     private var logsVector:Vector.<Log>;
     private var currentIndex:uint;
 
-    public function BeaverTrunk(solName:String, outputToConsole:Boolean=true) {
+    public function BeaverTrunk(solName:String, application:Object, outputToConsole:Boolean=true) {
 
         Security.allowDomain("*");
         Security.allowInsecureDomain("*");
 
         this.solName = solName;
+        this.application = application;
         this.outputToConsole = outputToConsole;
         logsVector = new Vector.<Log>();
         currentIndex = 1;
@@ -99,7 +101,7 @@ public class BeaverTrunk implements IBeaverTrunk {
         }
         // If level gt 6 i.e. ERROR/FATAL dispatch event to main application to handle internally
         if (level > 6) {
-            BeaverUtil.handleErrorLogs(message, qualifiedClassName, level);
+            BeaverUtil.handleErrorLogs(message, qualifiedClassName, level, application);
         }
     }
 
