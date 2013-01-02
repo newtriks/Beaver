@@ -61,7 +61,7 @@ and your application could transition to an error state.
 * Create an app that makes use of the unique application key i.e. validate key in a handshake
 method.
 
-* Connect to Beaver `var beaver:BeaverTrunk = new BeaverTrunk("_123456");`
+* Connect to Beaver `var beaver:BeaverTrunk = new BeaverTrunk("_123456", Example.root);`
 
 * Grab the logs `var logs:Vector.<com.newtriks.logging.values.Log> = beaver.logs;`
 
