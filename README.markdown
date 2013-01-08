@@ -26,7 +26,8 @@ anonymous users reading your application logs.
 	         * and a flag to send all output to the flash console.
 	         *
 	         * @param key:String
-	         * @param outputToConsole:Boolean
+	         * @param app:Object
+	         * @param outputToConsole:Boolean (default = true)
 	         */
 		    private static var trunk:BeaverTrunk = new BeaverTrunk("_123456", Example.root);
 
