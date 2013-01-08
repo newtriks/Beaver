@@ -27,6 +27,7 @@ public class BeaverTrunk implements IBeaverTrunk {
     private var outputToConsole:Boolean;
     private var logsVector:Vector.<Log>;
     private var currentIndex:uint;
+    private var firebug:Boolean = false;
 
     public function BeaverTrunk(solName:String, application:Object, outputToConsole:Boolean=true) {
 
@@ -39,6 +40,7 @@ public class BeaverTrunk implements IBeaverTrunk {
         logsVector = new Vector.<Log>();
         currentIndex = 1;
         registerClassAlias("com.newtriks.logging.values.Log", Log);
+        firebug = BeaverUtil.isFireBugAvailable;
     }
 
     /**
@@ -93,11 +95,11 @@ public class BeaverTrunk implements IBeaverTrunk {
             connection.send(solName, lcHandler, {message:message, level:level, sender:BeaverUtil.className(qualifiedClassName)});
         }
         catch (e:*) {
-            BeaverUtil.dumpTrace("Error sending log in BeaverLog", BeaverUtil.levelToString(LogEventLevel.ERROR), "BeaverLog");
+            BeaverUtil.dumpTrace("Error sending log in BeaverLog", BeaverUtil.levelToString(LogEventLevel.ERROR), "BeaverLog", firebug);
         }
         // Trace all logs to console
         if (outputToConsole) {
-            BeaverUtil.dumpTrace(message, BeaverUtil.levelToString(level).toUpperCase(), qualifiedClassName);
+            BeaverUtil.dumpTrace(message, BeaverUtil.levelToString(level).toUpperCase(), qualifiedClassName, firebug);
         }
         // If level gt 6 i.e. ERROR/FATAL dispatch event to main application to handle internally
         if (level > 6) {
@@ -124,11 +126,11 @@ public class BeaverTrunk implements IBeaverTrunk {
      */
 
     private function onAsyncError(event:AsyncErrorEvent):void {
-        BeaverUtil.dumpTrace("Async error in BeaverLog", BeaverUtil.levelToString(LogEventLevel.ERROR), "BeaverLog");
+        BeaverUtil.dumpTrace("Async error in BeaverLog", BeaverUtil.levelToString(LogEventLevel.ERROR), "BeaverLog", firebug);
     }
 
     private function onSecurityError(event:SecurityErrorEvent):void {
-        BeaverUtil.dumpTrace("Security error in BeaverLog", BeaverUtil.levelToString(LogEventLevel.ERROR), "BeaverLog");
+        BeaverUtil.dumpTrace("Security error in BeaverLog", BeaverUtil.levelToString(LogEventLevel.ERROR), "BeaverLog", firebug);
     }
 
     private function onStatus(event:StatusEvent):void {
