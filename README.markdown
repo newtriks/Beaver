@@ -12,6 +12,9 @@
 * Create a unique key starting with an underscore i.e. *_123456*. Using this key will help prevent
 anonymous users reading your application logs. 
 
+* Send a reference to your app instance to assign a handler for dispatched ERROR/FATAL events. I 
+  simply set root to a `static var` in the main app (or if using Flex simply use `FlexGlobals.topLevelApplication`).
+
 * Create a class to send logs e.g.
 
 		import com.newtriks.logging.core.BeaverTrunk;
@@ -25,7 +28,7 @@ anonymous users reading your application logs.
 	         * @param key:String
 	         * @param outputToConsole:Boolean
 	         */
-		    private static var trunk:BeaverTrunk = new BeaverTrunk("_123456");
+		    private static var trunk:BeaverTrunk = new BeaverTrunk("_123456", Example.root);
 
 		    public static function send(message:String, sender:Object, level:int = 4):void {
 		        trunk.saveNewLog(message, sender, level);
@@ -58,7 +61,7 @@ and your application could transition to an error state.
 * Create an app that makes use of the unique application key i.e. validate key in a handshake
 method.
 
-* Connect to Beaver `var beaver:BeaverTrunk = new BeaverTrunk("_123456");`
+* Connect to Beaver `var beaver:BeaverTrunk = new BeaverTrunk("_123456", Example.root);`
 
 * Grab the logs `var logs:Vector.<com.newtriks.logging.values.Log> = beaver.logs;`
 
